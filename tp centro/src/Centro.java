@@ -196,7 +196,7 @@ public class Centro implements metodos  {
 	
 	
 public static void main(String[] args) {
-System.out.println("probando");
+
 	Centro centro=new Centro("Centro Medico Dolores Fuentes","30-36542563-0",3000);
 	centro.agregarEspecialidad("Pediatria",2000);
 	centro.agregarEspecialidad("Cardiologia",3000);
