@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 
-public class Centro implements metodos  {
+public class Centro implements Interfaz  {
 	HashMap<Integer, Paciente> pacientes; 
 	HashMap<Integer, Medico> medicos;        
 	HashSet<Especialidad> especialidades; 

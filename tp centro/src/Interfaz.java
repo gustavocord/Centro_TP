@@ -1,5 +1,5 @@
 
-public interface metodos{
+public interface Interfaz{
 
 	
 	
