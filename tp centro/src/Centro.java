@@ -44,7 +44,7 @@ public class Centro implements Interfaz  {
 	public void agregarMedico(String nombre, int  matricula, String nomEspecialidad,double valorTratamiento) {
 		if (medicos.containsKey((Integer)matricula)) {
 
-			System.out.print("ERROR el medico ya existe ");
+			System.out.print("ERROR el medico			 ya existe ");
 			
 		}
 		else {
@@ -130,9 +130,10 @@ public class Centro implements Interfaz  {
 	
 	public void agregarTratamiento(int hC, int matricula, String tratamiento) {
 		// verifico que el paciente y el medico sean validos
+		Medico mTemporal =medicos.get((Integer)matricula);
 		if(perteneceAmbulatorio(hC) && perteneceMedico(matricula)) {
 			Ambulatorio amb = (Ambulatorio) pacientes.get((Integer)hC);
-			amb.nuevoTratamiento(tratamiento,medicos.get((Integer)matricula) , medicos.get((Integer)matricula).getHonorario());
+			amb.nuevoTratamiento(tratamiento,mTemporal); //
 		}
 		
 	
