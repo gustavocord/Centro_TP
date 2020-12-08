@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class Centro implements Interfaz  {
 	HashMap<Integer, Paciente> pacientes; 
-	HashMap<Integer, Medico> medicos;        
-	HashSet<Especialidad> especialidades; 
+	HashMap<Integer, Medico> medicos;         
+	HashMap<String,Especialidad> especialidades; 
 	String nombre;
 	String CUIT;
 	double precioInternacion;
@@ -19,7 +19,8 @@ public class Centro implements Interfaz  {
 		this.precioInternacion = pInternacion;
 		this.pacientes = new HashMap<Integer, Paciente>();
 		this.medicos = new HashMap<Integer, Medico>();
-		this.especialidades = new HashSet<Especialidad> ();
+		this.especialidades = new HashMap<String,Especialidad> ();
+		
 	}
 	
 	
@@ -38,13 +39,20 @@ public class Centro implements Interfaz  {
 	 
 	public void agregarEspecialidad(String nombre, double valor) {	
 		
-			especialidades.add(new Especialidad(nombre,valor));
-}
+			
+			if (!this.especialidades.containsKey(nombre)) {
+				this.especialidades.put(nombre,new Especialidad(nombre,valor));
+				
+			} else
+				throw new RuntimeException("Esa especialidad ya exixte");
+
+		}
+
 	
 	public void agregarMedico(String nombre, int  matricula, String nomEspecialidad,double valorTratamiento) {
 		if (medicos.containsKey((Integer)matricula)) {
 
-			System.out.print("ERROR el medico			 ya existe ");
+			throw new RuntimeException("ERROR el medico			 ya existe ");
 			
 		}
 		else {
@@ -58,7 +66,7 @@ public class Centro implements Interfaz  {
 	public void agregarPacientePrivado(String nombre, int hC, Fecha nac) {
 
 		if(pertenecePrivado(hC)) {
-			System.out.print("ERROR el paciente ya existe ");
+			throw new RuntimeException("ERROR el paciente ya existe ");
 		}
 		pacientes.put(hC, new Ambulatorio(nombre, (Integer)hC, nac));
 
@@ -66,14 +74,14 @@ public class Centro implements Interfaz  {
 	public void agregarPacienteAmbulatorio(String nombre, int hC, Fecha nac) {
  
 		if(perteneceAmbulatorio(hC)) {
-			System.out.print("ERROR el paciente ya existe ");
+			throw new RuntimeException("ERROR el paciente ya existe ");
 		}
 		pacientes.put(hC, new Ambulatorio(nombre, (Integer)hC, nac));
 
 	}
 	public void agregarPacienteObraSocial(String nombre, int hC, Fecha nac, String osocial, double porcentaje) {
 		if (perteneceOsocial(hC)) {
-			System.out.print("ERROR el paciente ya existe ");
+			throw new RuntimeException("ERROR el paciente ya existe ");
 		}
 		pacientes.put(hC, new Obrasocial(nombre, (Integer)hC, nac ,osocial ,porcentaje));
 	}
@@ -86,13 +94,13 @@ public class Centro implements Interfaz  {
 		if(pertenecePrivado(hC)) {
 			Privado ob= (Privado)pacientes.get(hC);
 			if (!ob.hizoConsulta(fecha)) // verifca si hizo consulta en consultorio
-				for (Especialidad esp : especialidades) {
-					//si la especialidad esta contenida en un medico
-					if (esp.getNombre().equals(m.getEspecialidad()))  
+				
+					//si la especialidad esta contenida en un medico // se simplifico con la nueva estructura
+					if (especialidades.containsKey(m.getEspecialidad()))  
 					{	
-						ob.nuevaConsulta(m ,fecha, esp.getValor() );
+						ob.nuevaConsulta(m ,fecha, especialidades.get(m.getEspecialidad()).getValor() );
 					}
-				 }			
+				 			
 			  }	
 			}
 	
