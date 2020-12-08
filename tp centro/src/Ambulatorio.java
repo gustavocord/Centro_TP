@@ -35,10 +35,10 @@ public class Ambulatorio extends Paciente{
 	}
 	
 	// agrega un nuevo tratamiento , medico responsable e importe a pagar
-public void nuevoTratamiento(String tratamiento , Medico medico , double honorario ) {
+public void nuevoTratamiento(String tratamiento , Medico medico ) {
 	
 	this.tratamiento =tratamiento ;
-	this.importeApagar=honorario+this.importeApagar;
+	this.importeApagar=medico.getHonorario()+this.importeApagar;
 	this.medicoResponsable=medico;
 }
 
