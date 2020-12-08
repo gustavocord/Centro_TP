@@ -42,19 +42,39 @@ public class Centro implements Interfaz  {
 }
 	
 	public void agregarMedico(String nombre, int  matricula, String nomEspecialidad,double valorTratamiento) {
+		if (medicos.containsKey((Integer)matricula)) {
+
+			System.out.print("ERROR el medico ya existe ");
+			
+		}
+		else {
+		
 		medicos.put(matricula, new Medico(nombre, (Integer)matricula,valorTratamiento,nomEspecialidad));
+		}
 	}//asegurada la no repeticion porque .put lo garantiza dado que matricula es key
 	
 		
 		
 	public void agregarPacientePrivado(String nombre, int hC, Fecha nac) {
-		pacientes.put(hC, new Privado(nombre, (Integer)hC, nac));
+
+		if(pertenecePrivado(hC)) {
+			System.out.print("ERROR el paciente ya existe ");
+		}
+		pacientes.put(hC, new Ambulatorio(nombre, (Integer)hC, nac));
+
 	}
 	public void agregarPacienteAmbulatorio(String nombre, int hC, Fecha nac) {
+ 
+		if(perteneceAmbulatorio(hC)) {
+			System.out.print("ERROR el paciente ya existe ");
+		}
 		pacientes.put(hC, new Ambulatorio(nombre, (Integer)hC, nac));
 
 	}
 	public void agregarPacienteObraSocial(String nombre, int hC, Fecha nac, String osocial, double porcentaje) {
+		if (perteneceOsocial(hC)) {
+			System.out.print("ERROR el paciente ya existe ");
+		}
 		pacientes.put(hC, new Obrasocial(nombre, (Integer)hC, nac ,osocial ,porcentaje));
 	}
 	
@@ -190,6 +210,8 @@ public class Centro implements Interfaz  {
 		return (medicos.containsKey((Integer)matricula));
 		
 	}
+	
+	
 /////////////////////////////////////////////////////
 
 	
