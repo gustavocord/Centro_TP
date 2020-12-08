@@ -4,7 +4,7 @@ public abstract  class Paciente {
 	private String nombre;
 	private Integer nroHistoria;
 	protected double importeApagar;
-	private Fecha fecha;
+	private Fecha FechaNacimiento;
 	
 	
 	
@@ -13,14 +13,14 @@ public abstract  class Paciente {
 		
 		this.nombre = nombre;
 		this.nroHistoria = historia;
-		this.fecha = fecha;
+		this.FechaNacimiento = fecha;
 		this.importeApagar =0;
 	}
 	
 	
 	@Override
 	public String toString() {
-		return "Paciente hC: "+this.nroHistoria+ "- "+this.nombre+"- fecha: "+this.fecha;
+		return "Paciente hC: "+this.nroHistoria+ "- "+this.nombre+"- fecha: "+this.FechaNacimiento;
 	}
 	
 	
