@@ -23,24 +23,7 @@ public class Privado  extends Paciente{
 		// TODO Auto-generated method stub
 		return this.importeApagar;
 	}
-	public HashSet<Consulta> getConsultas() {
-		return consultas;
-	}
 
-
-	public void setConsultas(HashSet<Consulta> consultas) {
-		this.consultas = consultas;
-	}
-
-
-	public HashSet<Fecha> getGuardias() {
-		return guardias;
-	}
-
-
-	public void setGuardias(HashSet<Fecha> guardias) {
-		this.guardias = guardias;
-	}
 	 	
 
 	//agrega una guardia
