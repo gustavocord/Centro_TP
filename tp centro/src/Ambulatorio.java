@@ -25,20 +25,13 @@ public class Ambulatorio extends Paciente{
 		// TODO Auto-generated method stub
 		return this.importeApagar;
 	}
-	public String getTratamiento() {
-		return tratamiento;
-	}
 
-
-	public void setTratamiento(String tratamiento) {
-		this.tratamiento = tratamiento;
-	}
 	
 	// agrega un nuevo tratamiento , medico responsable e importe a pagar
 public void nuevoTratamiento(String tratamiento , Medico medico ) {
 	
 	this.tratamiento =tratamiento ;
-	this.importeApagar=medico.getHonorario()+this.importeApagar;
+	this.importeApagar=medico.getHonorario() +this.importeApagar;
 	this.medicoResponsable=medico;
 }
 
