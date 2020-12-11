@@ -15,10 +15,6 @@ public class Medico {
 
 
 	
-	
-	public int getNrodematricula() {
-		return matricula;
-	}
 
 	public String getEspecialidad() {
 		return especialidad;
