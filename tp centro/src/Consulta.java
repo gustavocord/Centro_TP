@@ -12,21 +12,13 @@ public class Consulta {
 		this.fecha = fecha;
 	}
 
-	public Medico getMedico() {
-		return medico;
-	}
 
-	public void setMedico(Medico medico) {
-		this.medico = medico;
-	}
 
 	public Fecha getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Fecha fecha) {
-		this.fecha = fecha;
-	}
+
 	
 	String getEspecialidad() {
 		return medico.getEspecialidad();
