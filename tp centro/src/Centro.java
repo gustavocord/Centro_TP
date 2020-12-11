@@ -1,14 +1,15 @@
 
+
+// mañana seguir y revisar error por error
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 
 
 public class Centro implements Interfaz  {
 	HashMap<Integer, Paciente> pacientes; 
-	HashMap<Integer, Medico> medicos;         
-	HashMap<String,Especialidad> especialidades; 
+	HashMap<Integer, Medico> medicos;        
+	HashMap<String ,Especialidad> especialidades; 
 	String nombre;
 	String CUIT;
 	double precioInternacion;
@@ -19,8 +20,7 @@ public class Centro implements Interfaz  {
 		this.precioInternacion = pInternacion;
 		this.pacientes = new HashMap<Integer, Paciente>();
 		this.medicos = new HashMap<Integer, Medico>();
-		this.especialidades = new HashMap<String,Especialidad> ();
-		
+		this.especialidades = new HashMap<String ,Especialidad> ();
 	}
 	
 	
@@ -33,26 +33,25 @@ public class Centro implements Interfaz  {
 		sb.append("\nEspecialidades que ofrece el Centro: "+this.especialidades);
 		sb.append("\nPacientes del Centro:"+pacientes.toString());
 		sb.append("\nPrecio de internacion por dia: "+this.precioInternacion+"$");
+		
 		return sb.toString();
 	}
 	
 	 
 	public void agregarEspecialidad(String nombre, double valor) {	
-		
+
+		if (!this.especialidades.containsKey(nombre)) {
+			this.especialidades.put(nombre,new Especialidad(nombre,valor));
 			
-			if (!this.especialidades.containsKey(nombre)) {
-				this.especialidades.put(nombre,new Especialidad(nombre,valor));
-				
-			} else
-				throw new RuntimeException("Esa especialidad ya exixte");
-
-		}
-
+		} else
+			throw new RuntimeException("Esa especialidad ya exixte");
+}
 	
 	public void agregarMedico(String nombre, int  matricula, String nomEspecialidad,double valorTratamiento) {
+	
 		if (medicos.containsKey((Integer)matricula)) {
 
-			throw new RuntimeException("ERROR el medico			 ya existe ");
+			throw new RuntimeException("ERROR el medico ya existe ");
 			
 		}
 		else {
@@ -64,15 +63,13 @@ public class Centro implements Interfaz  {
 		
 		
 	public void agregarPacientePrivado(String nombre, int hC, Fecha nac) {
-
 		if(pertenecePrivado(hC)) {
 			throw new RuntimeException("ERROR el paciente ya existe ");
 		}
-		pacientes.put(hC, new Ambulatorio(nombre, (Integer)hC, nac));
+		pacientes.put(hC, new Privado(nombre, (Integer)hC, nac));
 
 	}
 	public void agregarPacienteAmbulatorio(String nombre, int hC, Fecha nac) {
- 
 		if(perteneceAmbulatorio(hC)) {
 			throw new RuntimeException("ERROR el paciente ya existe ");
 		}
@@ -95,10 +92,13 @@ public class Centro implements Interfaz  {
 			Privado ob= (Privado)pacientes.get(hC);
 			if (!ob.hizoConsulta(fecha)) // verifca si hizo consulta en consultorio
 				
-					//si la especialidad esta contenida en un medico // se simplifico con la nueva estructura
+					//si la especialidad esta contenida en un medico
 					if (especialidades.containsKey(m.getEspecialidad()))  
 					{	
 						ob.nuevaConsulta(m ,fecha, especialidades.get(m.getEspecialidad()).getValor() );
+					}
+					else {
+						throw new RuntimeException("ERROR al agregar la consulta");
 					}
 				 			
 			  }	
@@ -138,10 +138,9 @@ public class Centro implements Interfaz  {
 	
 	public void agregarTratamiento(int hC, int matricula, String tratamiento) {
 		// verifico que el paciente y el medico sean validos
-		Medico mTemporal =medicos.get((Integer)matricula);
 		if(perteneceAmbulatorio(hC) && perteneceMedico(matricula)) {
 			Ambulatorio amb = (Ambulatorio) pacientes.get((Integer)hC);
-			amb.nuevoTratamiento(tratamiento,mTemporal); //
+			amb.nuevoTratamiento(tratamiento,medicos.get((Integer)matricula));
 		}
 		
 	
@@ -220,7 +219,12 @@ public class Centro implements Interfaz  {
 		
 	}
 	
-	
+	//prueba de funcionamiento
+	void consultasPagas (Integer hC) {
+			Privado p = (Privado)pacientes.get(hC);
+			System.out.println(p.consultasP());
+		
+	}
 /////////////////////////////////////////////////////
 
 	
@@ -270,7 +274,10 @@ public static void main(String[] args) {
 	System.out.println("\nAgrego nueva atencion paciente 111...\n");
 	centro.agregarAtencion(111, new Fecha(18,11,2020),77777);
 	System.out.println("Atenciones paciente 111:");
+	centro.agregarAtencion(111, new Fecha(18,11,2020),77777);
 	System.out.println(centro.atencionesEnConsultorio(111));
+	
+	
 	}
 
 
