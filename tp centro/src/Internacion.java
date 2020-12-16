@@ -14,6 +14,7 @@ public class Internacion {
 		this.fecha_ingreso = fecha_ingreso;
 		this.precioInternacion = precioInternacion;
 		this.fecha_alta=null;
+		this.nrodehabitacion= nrodehabitacion ;
 	}
 	
 	@Override
@@ -38,35 +39,18 @@ public class Internacion {
 		return true;
 	}
 
+
+
+
 	
-	public int getNrodehabitacion() {
-		return nrodehabitacion;
-	}
 
-
-	public void setNrodehabitacion(int nrodehabitacion) {
-		this.nrodehabitacion = nrodehabitacion;
-	}
-
-
-	public String getArea() {
-		return area;
-	}
-
-
-	public void setArea(String area) {
-		this.area = area;
-	}
-
+	
 
 	public Fecha getFecha_ingreso() {
 		return fecha_ingreso;
 	}
 
 
-	public void setFecha_ingreso(Fecha fecha_ingreso) {
-		this.fecha_ingreso = fecha_ingreso;
-	}
 
 
 	public Fecha getFecha_alta() {
@@ -84,9 +68,6 @@ public class Internacion {
 	}
 
 
-	public void setPrecioInternacion(double precioInternacion) {
-		this.precioInternacion = precioInternacion;
-	}
 
 
 	

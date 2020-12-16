@@ -95,7 +95,7 @@ public class Centro implements Interfaz  {
 					//si la especialidad esta contenida en un medico
 					if (especialidades.containsKey(m.getEspecialidad()))  
 					{	
-						ob.nuevaConsulta(m ,fecha, especialidades.get(m.getEspecialidad()).getValor() );
+						ob.nuevaConsulta(matricula ,fecha,m.getEspecialidad() ,especialidades.get(m.getEspecialidad()).getValor() );
 					}
 					else {
 						throw new RuntimeException("ERROR al agregar la consulta");
@@ -219,12 +219,12 @@ public class Centro implements Interfaz  {
 		
 	}
 	
-	//prueba de funcionamiento
-	void consultasPagas (Integer hC) {
-			Privado p = (Privado)pacientes.get(hC);
-			System.out.println(p.consultasP());
-		
-	}
+	////prueba de funcionamiento
+	//void consultasPagas (Integer hC) {
+	//		Privado p = (Privado)pacientes.get(hC);
+	//		System.out.println(p.consultasP());
+	//	
+	//}
 /////////////////////////////////////////////////////
 
 	
@@ -276,6 +276,7 @@ public static void main(String[] args) {
 	System.out.println("Atenciones paciente 111:");
 	centro.agregarAtencion(111, new Fecha(18,11,2020),77777);
 	System.out.println(centro.atencionesEnConsultorio(111));
+	
 	
 	
 	}

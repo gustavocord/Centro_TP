@@ -1,12 +1,13 @@
-public abstract  class Paciente {
+
+
+public abstract  class Paciente{
 
 	
 	private String nombre;
 	private Integer nroHistoria;
 	protected double importeApagar;
 	private Fecha FechaNacimiento;
-	
-	
+
 	
 	
 	public Paciente(String nombre , Integer historia , Fecha fecha  ) {
@@ -15,6 +16,7 @@ public abstract  class Paciente {
 		this.nroHistoria = historia;
 		this.FechaNacimiento = fecha;
 		this.importeApagar =0;
+	
 	}
 	
 	
@@ -29,8 +31,9 @@ public abstract  class Paciente {
 	public abstract void pagarSaldo();
 
 
+
 	public int getNroHistoria() {
-		return nroHistoria;
+		return nroHistoria;	
 	}
 
 

@@ -4,21 +4,23 @@ public class Privado  extends Paciente{
 
 	private HashSet<Consulta> consultas;
 	private HashSet<Fecha> guardias;
-	private HashSet<Consulta> consultasPagas;
+
 
 	
 	Privado(String n, Integer hC, Fecha nac) {
 		super(n, hC, nac);
 		this.consultas= new HashSet<Consulta>();
 		this.guardias= new HashSet<Fecha>();
-		this.consultasPagas = new HashSet<Consulta>();
+	
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void pagarSaldo() {
 		this.importeApagar=0;
-		this.consultasPagas=(HashSet<Consulta>) this.consultas.clone();
+	
+		
+		
 	}
 	@Override
 	public double getSaldo() {
@@ -28,11 +30,7 @@ public class Privado  extends Paciente{
 
 
 	
-	
 
-	public HashSet<Consulta> getConsultasPagas() {
-		return consultasPagas;
-	}
 
 //agrega una guardia
 public void nuevaGuardia(Fecha fecha) {
@@ -42,11 +40,12 @@ public void nuevaGuardia(Fecha fecha) {
 }
 	
 //agrega una nueva consulta al consultorio y le pasa a consulta el medico a cargo
-public void nuevaConsulta (Medico m , Fecha fecha , double valorEspe ) {
+public void nuevaConsulta (int matricula , Fecha fecha ,String espe, double valorEspe ) {
 	
-	 
-		consultas.add(new Consulta(m,fecha ));
+	 	Consulta c = new Consulta(matricula,fecha,espe );
+		consultas.add(c);
 		this.importeApagar=valorEspe + this.importeApagar;
+		
 		
 		
 		
@@ -87,17 +86,17 @@ public HashMap<Fecha, String> atCE(){
 		return registro;
 }
 
-public HashMap<Fecha, String> consultasP(){
-	HashMap<Fecha, String> registro = new HashMap<Fecha, String>();
-	if (consultasPagas != null) {
-		
-		Iterator<Consulta> it = consultasPagas.iterator();
-		while (it.hasNext()) {
-			Consulta c = it.next();
-			registro.put(c.getFecha(), c.getEspecialidad());
-			}
-	}
-	return registro;
-}
+//public HashMap<Fecha, String> consultasP(){
+//	HashMap<Fecha, String> registro = new HashMap<Fecha, String>();
+//	if (consultasPagas != null) {
+//		
+//		Iterator<Consulta> it = consultasPagas.iterator();
+//		while (it.hasNext()) {
+//			Consulta c = it.next();
+//			registro.put(c.getFecha(), c.getEspecialidad());
+//			}
+//	}
+//	return registro;
+//}
 
 }
