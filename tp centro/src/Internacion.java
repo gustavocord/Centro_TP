@@ -19,7 +19,7 @@ public class Internacion {
 	
 	@Override
 	public String toString() {
-		return "Area: "+area+"-Fecha ingreso: "+this.fecha_ingreso+"-Fecha alta: "+fecha_alta;
+		return "Area: "+area+"-Fecha ingreso: "+this.fecha_ingreso+"-Fecha alta: "+fecha_alta +" Pago:";
 	}
 	
 	@Override

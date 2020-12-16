@@ -12,7 +12,7 @@ public class Tratamiento {
 	}
 	@Override
 	public String toString() {
-		return "Tratamiento [Nombre" + this.nombreTrata + ", Medico matricula: "+ this.matricula+ "]";
+		return "Tratamiento [Nombre del tratamiento :" + this.nombreTrata + ", Medico matricula: "+ this.matricula+" Pago :" ;
 	}
 
 	

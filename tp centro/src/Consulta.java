@@ -13,6 +13,11 @@ public class Consulta {
 		this.especialidad = esp;
 	}
 
+	
+	@Override
+	public String toString() {
+		return "fecha: "+fecha+"-Matricula del medico: "+matricula +" Pago";
+	}
 
 
 	public Fecha getFecha() {

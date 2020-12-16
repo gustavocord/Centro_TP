@@ -108,8 +108,9 @@ public class Centro implements Interfaz  {
 			Privado ob= (Privado)pacientes.get(hC);
 				if(!ob.hizoConsultaguardia(fecha)) { //si no hizo consulta en guardia lo agrego
 					ob.nuevaGuardia(fecha);
-					}
-		}
+					}else {throw new RuntimeException("ERROR el paciente ya se atendio en guardia el dia de hoy");}
+		}else {
+			throw new RuntimeException("ERROR el paciente no pertenece a privado");}
 	} 
 	
 	//agregar internacion
@@ -119,9 +120,10 @@ public class Centro implements Interfaz  {
 		if (perteneceOsocial(hC)) { 
 			Obrasocial ob = (Obrasocial)pacientes.get((Integer)hC);
 				//si el paciente no esta internado lo agrego a internacion
-				if(!ob.estaInternado())
+				if(!ob.estaInternado()) {
 					ob.nuevainternacion(area,fingreso,this.precioInternacion);
-			}
+				}
+				}else {throw new RuntimeException("ERROR el paciente no pertenece a obra social");}
 		}
 		
 	//doy de alta un paciente 
@@ -131,7 +133,9 @@ public class Centro implements Interfaz  {
 			Obrasocial ob= (Obrasocial)pacientes.get(hC);
 			ob.altaInternacion(fechaAlta);
 		}
-		
+		else {
+		   throw new RuntimeException("ERROR el paciente no pertenece a obra social");
+		}
 	}
 	
 	
@@ -140,6 +144,9 @@ public class Centro implements Interfaz  {
 		if(perteneceAmbulatorio(hC) && perteneceMedico(matricula)) {
 			Ambulatorio amb = (Ambulatorio) pacientes.get((Integer)hC);
 			amb.nuevoTratamiento(tratamiento,medicos.get((Integer)matricula));
+		}
+		else {
+			throw new RuntimeException("ERROR el paciente no es ambulatorio o el medico no pertenece al centro");
 		}
 		
 	
@@ -157,6 +164,8 @@ public class Centro implements Interfaz  {
 		{
 			pacientes.get(hC).pagarSaldo();
 		}
+		else {throw new RuntimeException("ERROR el paciente no pertenece al centro");
+}
 	}
 	
 	public Map<Fecha, String> atencionesEnConsultorio(int hC){
@@ -168,9 +177,45 @@ public class Centro implements Interfaz  {
 		
 	}
 	
-	
+	//historico privado , el mismo devuelve el objeto de la consulta de todos los pacientes privados y si se pago
 
-			
+	public Map<Consulta, String> historicoPrivado(){
+		 Map<Consulta, String> hist=new HashMap<Consulta, String>();
+		for (Integer c : pacientes.keySet()) {
+		if (pertenecePrivado(c)) {
+			Privado p = (Privado)pacientes.get((c));
+			hist.putAll(p.historico());
+				}
+	}
+	return hist;	
+	}
+
+	// historico ambulatorio
+	
+	public Map<Tratamiento, String> historicoAmbulatorio(){
+		 Map<Tratamiento, String> hist=new HashMap<Tratamiento, String>();
+		for (Integer c : pacientes.keySet()) {
+		if (perteneceAmbulatorio(c)) {
+			Ambulatorio p = (Ambulatorio)pacientes.get((c));
+			hist.putAll(p.historico());
+				}
+	}
+	return hist;	
+	}
+	
+// historico obra social
+	
+	
+	public Map<Internacion, String> historicoOsocial(){
+		 Map<Internacion, String> hist=new HashMap<Internacion, String>();
+		for (Integer c : pacientes.keySet()) {
+		if (perteneceOsocial(c)) {
+			Obrasocial p = (Obrasocial)pacientes.get((c));
+			hist.putAll(p.historico());
+				}
+	}
+	return hist;	
+	}
 	
 		
 		
@@ -226,13 +271,6 @@ public class Centro implements Interfaz  {
 		
 	}
 	
-	////prueba de funcionamiento
-	//void consultasPagas (Integer hC) {
-	//		Privado p = (Privado)pacientes.get(hC);
-	//		System.out.println(p.consultasP());
-	//	
-	//}
-/////////////////////////////////////////////////////
 
 	
 	
@@ -247,11 +285,15 @@ public static void main(String[] args) {
 	centro.agregarMedico("Dr Rodriguez", 66666, "Cardiologia", 8000);
 	centro.agregarMedico("Dr Curetta", 77777, "Traumatologia", 2000);
 	centro.agregarPacientePrivado("Juan", 111, new Fecha(20,11,1980));
+	
+
+
 	centro.agregarPacienteObraSocial("Carlos", 222, new Fecha(15,1,1940), "Pami",
 	0.3);
 	centro.agregarPacienteAmbulatorio("Pedro", 333, new Fecha(28,2,1970));
 	centro.agregarPacienteObraSocial("Jose", 444, new Fecha(15,1,1940), "Ospe",
 	0.2);
+	
 	centro.agregarAtencion(111, new Fecha(25,10,2020));
 	centro.agregarAtencion(111, Fecha.hoy(), 55555);
 	System.out.println("Lista de internacion:" + centro.listaInternacion());
@@ -283,8 +325,14 @@ public static void main(String[] args) {
 	System.out.println("Atenciones paciente 111:");
 	centro.agregarAtencion(111, new Fecha(18,11,2020),77777);
 	System.out.println(centro.atencionesEnConsultorio(111));
-	
-	
+	//Historicos de los pacientes
+	System.out.println("                         ");
+	System.out.println("HISTORICOS DE PACIENTES");
+	System.out.println("********************************************");
+	System.out.println("                         ");
+	System.out.println(centro.historicoAmbulatorio());
+	System.out.println(centro.historicoPrivado());
+	System.out.println(centro.historicoOsocial());
 	
 	}
 
