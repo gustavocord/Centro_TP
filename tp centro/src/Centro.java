@@ -29,11 +29,10 @@ public class Centro implements Interfaz  {
 		StringBuilder sb = new StringBuilder();
 		sb.append("----------"+this.nombre+"---------");
 		sb.append("\nCUIT: "+this.CUIT);
-		sb.append("\n Medicos: "+medicos.toString());
+		sb.append("\nProfesionales: "+medicos.toString());
 		sb.append("\nEspecialidades que ofrece el Centro: "+this.especialidades);
 		sb.append("\nPacientes del Centro:"+pacientes.toString());
 		sb.append("\nPrecio de internacion por dia: "+this.precioInternacion+"$");
-		
 		return sb.toString();
 	}
 	
@@ -168,6 +167,14 @@ public class Centro implements Interfaz  {
 		return null;
 		
 	}
+	
+	
+
+			
+	
+		
+		
+	
 	
 	//devuelve lista internacdos
 

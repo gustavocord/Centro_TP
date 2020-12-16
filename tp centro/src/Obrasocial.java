@@ -1,5 +1,5 @@
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 
 public class Obrasocial extends Paciente{
@@ -7,13 +7,13 @@ public class Obrasocial extends Paciente{
 	
 	private String nombreObrasocial;
 	private double  porcentaje;
-	private HashSet<Internacion> internaciones;
+	private HashMap<Internacion ,String> internaciones;
 	
 	
 	public Obrasocial(String nombre, Integer historia, Fecha fechaNac, String nombreObrasocial ,double porcentaje) {
 		super(nombre, historia, fechaNac);
 		this.nombreObrasocial = nombreObrasocial;
-		this.internaciones = new HashSet <Internacion>();
+		this.internaciones = new HashMap <Internacion,String>();
 		this.porcentaje=porcentaje;
 	}
 	
@@ -38,13 +38,13 @@ public class Obrasocial extends Paciente{
 
 	public void nuevainternacion(String area, Fecha fecha, double precioInternacion) {
 		
-			internaciones.add(new Internacion(area,fecha,precioInternacion));	
+			internaciones.put(new Internacion(area,fecha,precioInternacion),"no");	
 		
 	}
 public void altaInternacion (Fecha alta) {
 	if (internaciones!= null ) { //verifica si hay internaciones
 		
-		for (Internacion i: internaciones) {
+		for (Internacion i: internaciones.keySet()) {
 		
 			// verifica si la fecha de ingreso es menos a la de alta y la fecha de alta es nula
 			if (i.getFecha_ingreso().esMenor(alta)&& i.getFecha_alta()==null ) {
@@ -66,7 +66,7 @@ public void altaInternacion (Fecha alta) {
 	public boolean estaInternado() {
 		if (internaciones != null) {
 			boolean internado=false;
-			for (Internacion i: internaciones) {
+				for (Internacion i: internaciones.keySet()) {
 				internado= internado || i.getFecha_ingreso()!=null && i.getFecha_alta()==null;
 			}
 			return internado;
@@ -74,6 +74,10 @@ public void altaInternacion (Fecha alta) {
 		else {
 			
 		return false;}
+	}
+	public HashMap<Internacion, String> historico(){
+
+		return internaciones;
 	}
 
 }

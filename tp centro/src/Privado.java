@@ -1,15 +1,18 @@
 
 import java.util.*;
-public class Privado  extends Paciente{
+import java.util.Map.Entry;
 
-	private HashSet<Consulta> consultas;
+
+public class Privado extends Paciente{
+
+	private HashMap<Consulta,String> consultas;
 	private HashSet<Fecha> guardias;
 
 
 	
 	Privado(String n, Integer hC, Fecha nac) {
 		super(n, hC, nac);
-		this.consultas= new HashSet<Consulta>();
+		this.consultas= new HashMap<Consulta,String>();
 		this.guardias= new HashSet<Fecha>();
 	
 		// TODO Auto-generated constructor stub
@@ -18,7 +21,15 @@ public class Privado  extends Paciente{
 	@Override
 	public void pagarSaldo() {
 		this.importeApagar=0;
-	
+		Iterator<Entry<Consulta,String>> it = consultas.entrySet().iterator();
+ 		while (it.hasNext()) {
+ 			Map.Entry<Consulta,String> c = it.next();
+ 			if (c.getValue().equals("no")) {
+ 				consultas.put(c.getKey(), "si");
+ 			}
+			
+ 			
+		}
 		
 		
 	}
@@ -27,7 +38,8 @@ public class Privado  extends Paciente{
 		// TODO Auto-generated method stub
 		return this.importeApagar;
 	}
-
+	
+	
 
 	
 
@@ -43,7 +55,7 @@ public void nuevaGuardia(Fecha fecha) {
 public void nuevaConsulta (int matricula , Fecha fecha ,String espe, double valorEspe ) {
 	
 	 	Consulta c = new Consulta(matricula,fecha,espe );
-		consultas.add(c);
+		consultas.put(c,"no");
 		this.importeApagar=valorEspe + this.importeApagar;
 		
 		
@@ -54,7 +66,7 @@ public void nuevaConsulta (int matricula , Fecha fecha ,String espe, double valo
 //verifica si el paciente hizo una consulta el dia que se quiere atender en consultorio
 public boolean hizoConsulta(Fecha fecha) {
 	if (consultas!=null ) {
-		for(Consulta c: consultas ) {
+		for(Consulta c: consultas.keySet() ) {
 			if (c.getFecha().equals(Fecha.hoy())) {
 				return true ;
 			}
@@ -77,26 +89,19 @@ public HashMap<Fecha, String> atCE(){
 		HashMap<Fecha, String> registro = new HashMap<Fecha, String>();
 		if (consultas != null) {
  		
-			Iterator<Consulta> it = consultas.iterator();
+			Iterator<Entry<Consulta,String>> it = consultas.entrySet().iterator();
  		while (it.hasNext()) {
- 			Consulta c = it.next();
- 			registro.put(c.getFecha(), c.getEspecialidad());
+ 			Map.Entry<Consulta,String> c = it.next();
+ 			registro.put(c.getKey().getFecha(), c.getKey().getEspecialidad());
  			}
 		}
 		return registro;
 }
 
-//public HashMap<Fecha, String> consultasP(){
-//	HashMap<Fecha, String> registro = new HashMap<Fecha, String>();
-//	if (consultasPagas != null) {
-//		
-//		Iterator<Consulta> it = consultasPagas.iterator();
-//		while (it.hasNext()) {
-//			Consulta c = it.next();
-//			registro.put(c.getFecha(), c.getEspecialidad());
-//			}
-//	}
-//	return registro;
-//}
+public HashMap<Consulta, String> historico(){
+
+	return consultas;
+}
+
 
 }

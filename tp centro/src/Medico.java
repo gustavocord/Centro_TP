@@ -24,7 +24,9 @@ public class Medico {
 		return honorarios;
 	}
 
-	
+	public int getMatricula() {
+		return matricula;
+	}
 	
 	@Override
 	public String toString() {

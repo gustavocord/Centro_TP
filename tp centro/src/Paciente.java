@@ -30,8 +30,6 @@ public abstract  class Paciente{
 
 	public abstract void pagarSaldo();
 
-
-
 	public int getNroHistoria() {
 		return nroHistoria;	
 	}
